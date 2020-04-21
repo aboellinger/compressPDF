@@ -1,6 +1,9 @@
 #!/bin/bash
 # author: emanuel.regnath@tum.de
 
+MSYS_NO_PATHCONV=1
+GS="/c/Program Files (x86)/gs/gs9.52/bin/gswin32.exe"
+
 # help
 function print_usage(){
 	echo "Usage: $0 FILE.pdf [OUTPUT.pdf]"
@@ -26,7 +29,7 @@ fi
 
 # menu
   echo "
-Select Color Option (or ENTER to leave untouched): 
+Select Color Option (or ENTER to leave untouched):
 
   1) Gray
   2) Color
@@ -41,7 +44,7 @@ Select Color Option (or ENTER to leave untouched):
 
 
   echo "
-Select Base Qualtity (printer is default): 
+Select Base Qualtity (printer is default):
 
   1) screen (72 DPI)
   2) ebook (150 DPI)
@@ -115,13 +118,13 @@ esac
 # convert using ghostscript
 echo "Optimizing PDF ..."
 
-gs -dBATCH -dNOPAUSE -dSAFER \
+"$GS" -dBATCH -dNOPAUSE -dSAFER \
  -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 \
  ${PDF_FLAGS} \
  ${COLOR_FLAGS} \
  ${DPI_FLAGS} \
  ${FONT_FLAGS} \
- -sOutputFile=$OUTPUT $1
+ -sOutputFile="$OUTPUT" "$1"
 
 
 
